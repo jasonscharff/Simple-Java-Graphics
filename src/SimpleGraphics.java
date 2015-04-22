@@ -26,12 +26,12 @@ public class SimpleGraphics{
 
 	}
 
-	public static void drawCircle(int x, int y, int radius, Color c)
+	public static void fillCircle(int x, int y, int radius, Color c)
 	{
 		configureJFrame();
-		Graphics2D g = (Graphics2D) frame.getGraphics();
-		g.setColor(c);
-		g.fillOval(x, y, radius, radius);
+		Oval o = new Oval(x, y, radius *2, radius * 2);
+		frame.getContentPane().add(new Oval(x, y, radius * 2, radius * 2, c));
+		frame.setVisible(true);
 	}
 
 	public static void drawSquare(int x, int y, int sideLength)
@@ -62,7 +62,6 @@ public class SimpleGraphics{
 		frame.setVisible(true);	
 	}
 
-
 	
 
 	public static boolean addImage(int x, int y, String name)
@@ -73,9 +72,8 @@ public class SimpleGraphics{
 		try 
 		{
 			image = ImageIO.read(new File(name));
-			Graphics2D g = (Graphics2D) frame.getGraphics();
-			g.drawImage(image, x, y, null);
-
+			frame.getContentPane().add(new Image(x, y, image));
+			frame.setVisible(true);	
 		} 
 		catch (IOException e) {
 			System.out.println("That's not a valid file path. Make sure you put it in the project folder"
@@ -94,8 +92,8 @@ public class SimpleGraphics{
 		try 
 		{
 			BufferedImage image = ImageIO.read(new URL(url));
-			Graphics2D g = (Graphics2D) frame.getGraphics();
-			g.drawImage(image, x, y, null);
+			frame.getContentPane().add(new Image(x, y, image));
+			frame.setVisible(true);	
 		} 
 		catch (IOException e) 
 		{
@@ -180,6 +178,25 @@ public class SimpleGraphics{
 }
 
 //Shape Classes
+
+class Image extends JComponent
+{
+	BufferedImage image;
+	int x;
+	int y;
+	
+	public Image(int x, int y, BufferedImage image)
+	{
+		this.image = image;
+		this.x = x;
+		this.y = y;
+	}
+	
+	public void paint (Graphics g)
+	{
+		g.drawImage(image, x, y, null);
+	}
+}
 
 
 class Rectangle extends JComponent
