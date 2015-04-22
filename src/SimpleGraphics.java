@@ -1,21 +1,48 @@
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class SimpleGraphics{
+public class SimpleGraphics {
 	static final int WIDTH = 800;
 	static final int HEIGHT = 600;
 	static final JFrame frame = new JFrame();
 	static boolean hasConfiguredJFrame = false;
+	HashMap<String, Color> colors = getColorsMap();
+	
 
-
-
+	
+	
+	private static HashMap<String, Color> getColorsMap()
+	{
+		HashMap<String, Color> colors = new HashMap<String, Color>();
+		colors.put("blue", Color.blue);
+		colors.put("pink", Color.pink);
+		colors.put("red", Color.red);
+		colors.put("magenta", Color.magenta);
+		colors.put("grey", Color.gray);
+		colors.put("gray", Color.gray);
+		colors.put("black", Color.black);
+		colors.put("white", Color.white);
+		colors.put("green", Color.green);
+		colors.put("yellow", Color.yellow);
+		colors.put("orange", Color.orange);
+		colors.put("purple", new Color(128, 0, 128));
+		colors.put("sky", new Color(135, 206, 235));
+		
+		return colors;
+	}
+	
 
 	public static void drawCircle(int x, int y, int radius)
 	{
@@ -23,7 +50,6 @@ public class SimpleGraphics{
 		Oval o = new Oval(x, y, radius *2, radius * 2);
 		frame.getContentPane().add(new Oval(x, y, radius * 2, radius * 2));
 		frame.setVisible(true);
-
 	}
 
 	public static void fillCircle(int x, int y, int radius, Color c)
@@ -174,6 +200,8 @@ public class SimpleGraphics{
 
 	}
 
+	
+	
 
 }
 
