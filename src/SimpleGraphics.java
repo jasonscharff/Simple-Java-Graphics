@@ -12,13 +12,14 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.colorchooser.ColorSelectionModel;
 
 public class SimpleGraphics {
 	static final int WIDTH = 800;
 	static final int HEIGHT = 600;
 	static final JFrame frame = new JFrame();
 	static boolean hasConfiguredJFrame = false;
-	HashMap<String, Color> colors = getColorsMap();
+	static HashMap<String, Color> colors = getColorsMap();
 	
 
 	
@@ -43,6 +44,94 @@ public class SimpleGraphics {
 		return colors;
 	}
 	
+	public static void addText(int x, int y, String text)
+	{
+		configureJFrame();
+		frame.getContentPane().add(new Text(x, y, text));
+		frame.setVisible(true);
+	}
+	
+	public static void addText(int x, int y, String text, int fontSize)
+	{
+		configureJFrame();
+		frame.getContentPane().add(new Text(x, y, text, fontSize));
+		frame.setVisible(true);
+	}
+	
+	public static void addText(int x, int y, String text, String font)
+	{
+		configureJFrame();
+		frame.getContentPane().add(new Text(x, y, text, font));
+		frame.setVisible(true);
+	}
+	
+	public static void addText(int x, int y, String text, String font, int fontSize)
+	{
+		configureJFrame();
+		frame.getContentPane().add(new Text(x, y, text, fontSize, font));
+		frame.setVisible(true);
+	}
+	
+	public static void addTextWithColor(int x, int y, String text, String color)
+	{
+		if(colors.containsKey(color.toLowerCase()))
+		{
+			Color c = colors.get(color.toLowerCase());
+			configureJFrame();
+			frame.getContentPane().add(new Text(x, y, text, c));
+			frame.setVisible(true);
+		}
+		else
+		{
+			System.err.println("Invalid color");
+		}
+	}
+	
+	public static void addTextWithColor(int x, int y, String text, int fontSize, String color)
+	{
+		if(colors.containsKey(color.toLowerCase()))
+		{
+			Color c = colors.get(color.toLowerCase());
+			configureJFrame();
+			frame.getContentPane().add(new Text(x, y, text, fontSize,c));
+			frame.setVisible(true);
+		}
+		else
+		{
+			System.err.println("Invalid color");
+		}
+	}
+	
+	public static void addTextWithColor(int x, int y, String text, String font, String color)
+	{
+		if(colors.containsKey(color.toLowerCase()))
+		{
+			Color c = colors.get(color.toLowerCase());
+			configureJFrame();
+			frame.getContentPane().add(new Text(x, y, text, font, c));
+			frame.setVisible(true);
+		}
+		else
+		{
+			System.err.println("Invalid color");
+		}
+	}
+	
+	public static void addTextWithColor(int x, int y, String text, String font, int fontSize, String color)
+	{
+		if(colors.containsKey(color.toLowerCase()))
+		{
+			Color c = colors.get(color.toLowerCase());
+			configureJFrame();
+			frame.getContentPane().add(new Text(x, y, text, fontSize, font, c));
+			frame.setVisible(true);
+		}
+		else
+		{
+			System.err.println("Invalid color");
+		}
+	}
+	
 
 	public static void drawCircle(int x, int y, int radius)
 	{
@@ -52,12 +141,21 @@ public class SimpleGraphics {
 		frame.setVisible(true);
 	}
 
-	public static void fillCircle(int x, int y, int radius, Color c)
+	public static void fillCircle(int x, int y, int radius, String color)
 	{
-		configureJFrame();
-		Oval o = new Oval(x, y, radius *2, radius * 2);
-		frame.getContentPane().add(new Oval(x, y, radius * 2, radius * 2, c));
-		frame.setVisible(true);
+		if(colors.containsKey(color.toLowerCase()))
+		{
+			Color c = colors.get(color.toLowerCase());
+			configureJFrame();
+			Oval o = new Oval(x, y, radius *2, radius * 2);
+			frame.getContentPane().add(new Oval(x, y, radius * 2, radius * 2, c));
+			frame.setVisible(true);
+		}
+		else
+		{
+			System.err.println("Invalid Color");
+		}
+		
 	}
 
 	public static void drawSquare(int x, int y, int sideLength)
@@ -67,9 +165,10 @@ public class SimpleGraphics {
 		frame.setVisible(true);	
 	}
 	
-	public static void fillSquare(int x, int y, int sideLength, Color c)
+	public static void fillSquare(int x, int y, int sideLength, String color)
 	{
 		configureJFrame();
+		Color c = colors.get(color.toLowerCase());
 		frame.getContentPane().add(new Rectangle(x, y, sideLength, sideLength, c));
 		frame.setVisible(true);
 	}
@@ -81,11 +180,20 @@ public class SimpleGraphics {
 		frame.setVisible(true);	
 	}
 	
-	public static void fillRectangle(int x, int y, int width, int height, Color c)
+	public static void fillRectangle(int x, int y, int width, int height, String color)
 	{
-		configureJFrame();
-		frame.getContentPane().add(new Rectangle(x, y, width, height, c));
-		frame.setVisible(true);	
+		if(colors.containsKey(color.toLowerCase()))
+		{
+			Color c = colors.get(color.toLowerCase());
+			configureJFrame();
+			frame.getContentPane().add(new Rectangle(x, y, width, height, c));
+			frame.setVisible(true);	
+		}
+		else
+		{
+			System.err.println("Invalid Color");
+		}
+		
 	}
 
 	
@@ -150,13 +258,22 @@ public class SimpleGraphics {
 	}
 
 	public static void fillTriangle (int point1X, int point1Y, int point2X, int point2Y, int point3X, 
-			int point3Y, Color c)
+			int point3Y, String color)
 	{
-				configureJFrame();
-				int [] xCoordinates = {point1X, point2X, point3X};
-				int [] yCoordinates = {point1Y, point2Y, point3Y};
-				frame.getContentPane().add(new Polygon(xCoordinates, yCoordinates, c));
-				frame.setVisible(true);
+		if(colors.containsKey(color.toLowerCase()))
+		{
+			Color c = colors.get(color.toLowerCase());
+			configureJFrame();
+			int [] xCoordinates = {point1X, point2X, point3X};
+			int [] yCoordinates = {point1Y, point2Y, point3Y};
+			frame.getContentPane().add(new Polygon(xCoordinates, yCoordinates, c));
+			frame.setVisible(true);
+		}
+		else
+		{
+			System.err.println("Invalid Color");
+		}
+				
 	}
 
 	public static void drawLine(int x1, int y1, int x2, int y2)
@@ -173,18 +290,36 @@ public class SimpleGraphics {
 		frame.setVisible(true);
 	}
 	
-	public static void drawLine(int x1, int y1, int x2, int y2, Color c)
+	public static void drawLine(int x1, int y1, int x2, int y2, String color)
 	{
-		configureJFrame();
-		frame.getContentPane().add(new Line(x1, y1, x2, y2, c));
-		frame.setVisible(true);
+		if(colors.containsKey(color.toLowerCase()))
+		{
+			Color c = colors.get(color.toLowerCase());
+			configureJFrame();
+			frame.getContentPane().add(new Line(x1, y1, x2, y2, c));
+			frame.setVisible(true);
+		}
+		else
+		{
+			System.err.println("Invalid Color");
+		}
+		
 	}
 	
-	public static void drawLine(int x1, int y1, int x2, int y2, int thickness, Color color)
+	public static void drawLine(int x1, int y1, int x2, int y2, int thickness, String color)
 	{
-		configureJFrame();
-		frame.getContentPane().add(new Line(x1, y1, x2, y2, thickness, color));
-		frame.setVisible(true);
+		if(colors.containsKey(color.toLowerCase()))
+		{
+			Color c = colors.get(color.toLowerCase());
+			configureJFrame();
+			frame.getContentPane().add(new Line(x1, y1, x2, y2, thickness, c));
+			frame.setVisible(true);
+		}
+		else
+		{
+			System.err.println("Invalid Color");
+		}
+		
 	}
 
 
@@ -206,6 +341,116 @@ public class SimpleGraphics {
 }
 
 //Shape Classes
+//http://sanjaal.com/java/tag/java-list-of-all-font-names/
+class Text extends JComponent
+{
+	static final String defaultFont = "TimesRoman";
+	static final int defaultFontSize = 12;
+	int x;
+	int y;
+	String text;
+	int fontSize = 0;
+	Color color = null;
+	String font = null;
+	
+	public Text(int x, int y, String text)
+	{
+		this.x  = x;
+		this.y = y;
+		this.text = text;
+	}
+	
+	public Text(int x, int y, String text, int fontSize)
+	{
+		this.x  = x;
+		this.y = y;
+		this.text = text;
+		this.fontSize = fontSize;
+				
+	}
+	
+	public Text (int x, int y, String text, int fontSize, String font)
+	{
+		this.x  = x;
+		this.y = y;
+		this.text = text;
+		this.fontSize = fontSize;
+		this.font = font;
+	}
+	
+	
+	public Text (int x, int y, String text, String font)
+	{
+		this.x = x;
+		this.y = y;
+		this.text = text;
+		this.font = font;
+	}
+	
+	public Text(int x, int y, String text, Color c)
+	{
+		this.x  = x;
+		this.y = y;
+		this.text = text;
+		this.color = c;
+	}
+	
+	public Text(int x, int y, String text, int fontSize, Color c)
+	{
+		this.x  = x;
+		this.y = y;
+		this.text = text;
+		this.fontSize = fontSize;
+		this.color = c;
+				
+	}
+	
+	public Text (int x, int y, String text, int fontSize, String font, Color c)
+	{
+		this.x  = x;
+		this.y = y;
+		this.text = text;
+		this.fontSize = fontSize;
+		this.font = font;
+		this.color = c;
+	}
+	
+	
+	public Text (int x, int y, String text, String font, Color c)
+	{
+		this.x = x;
+		this.y = y;
+		this.text = text;
+		this.font = font;
+		this.color = c;
+	}
+	
+	public void paint(Graphics g)
+	{
+		Graphics2D g2 = (Graphics2D) g;
+		if(fontSize > 0 && font != null)
+		{
+			g2.setFont(new Font(font, Font.PLAIN, fontSize));
+		}
+		else if (fontSize > 0)
+		{
+			g2.setFont(new Font(defaultFont, Font.PLAIN, fontSize));
+		}
+		else if (font != null)
+		{
+			g2.setFont(new Font(this.font, Font.PLAIN, defaultFontSize));
+		}
+		else
+		{
+			g2.setFont(new Font(defaultFont, Font.PLAIN, defaultFontSize));
+		}
+		if(this.color != null)
+		{
+			g2.setColor(color);
+		}
+		g2.drawString(text, x, y);
+	}
+}
 
 class Image extends JComponent
 {
@@ -225,6 +470,7 @@ class Image extends JComponent
 		g.drawImage(image, x, y, null);
 	}
 }
+
 
 
 class Rectangle extends JComponent
