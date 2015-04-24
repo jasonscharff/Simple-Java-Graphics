@@ -435,7 +435,7 @@ public class SimpleGraphics {
 					+ ",but not in the src folder.");
 			success = false;
 		}
-		return false;
+		return success;
 
 	}
 
@@ -530,6 +530,53 @@ public class SimpleGraphics {
 		}
 
 	}
+	
+	/**
+	 * Draws any polygon with the given x and y coordinates in array
+	 * @param xCoordinates	An array of x coordinates
+	 * @param yCoordinates	An array of y coordinates
+	 */
+	public static void drawPolygon(int[] xCoordinates, int [] yCoordinates)
+	{
+		configureJFrame();
+		frame.getContentPane().add(new Polygon(xCoordinates, yCoordinates));
+		frame.setVisible(true);
+	}
+	
+	/**
+	 * Draws any polygon of a certain thickness with the given x and y coordinates in array
+	 * @param xCoordinates	An array of x coordinates
+	 * @param yCoordinates	An array of y coordinates
+	 * @param thickness	The thickness of the polygon's border
+	 */
+	public static void drawPolygon(int[] xCoordinates, int [] yCoordinates, int thickness)
+	{
+		configureJFrame();
+		frame.getContentPane().add(new Polygon(xCoordinates, yCoordinates, thickness));
+		frame.setVisible(true);
+	}
+	
+	/**
+	 * Draws any polygon with a certain background color with the given x and y coordinates in array
+	 * @param xCoordinates	An array of x coordinates
+	 * @param yCoordinates	An array of y coordinates
+	 * @param color	A string representation of the polygon's background color.
+	 */
+	public static void drawPolygon(int[] xCoordinates, int [] yCoordinates, String color)
+	{
+		if(colors.containsKey(color.toLowerCase()))
+		{
+			Color c = colors.get(color.toLowerCase());
+			configureJFrame();
+			frame.getContentPane().add(new Polygon(xCoordinates, yCoordinates, c));
+			frame.setVisible(true);
+		}
+		else
+		{
+			System.err.println("Invalid Color");
+		}
+	}
+	
 	/**
 	 * Draws a line between the given points
 	 * @param x1	The x coordinate of the first point
@@ -630,7 +677,7 @@ public class SimpleGraphics {
  * The following classes all denote a specific type of shape or other type of graphic
  * that can be added onto the screen.
  */
-//http://sanjaal.com/java/tag/java-list-of-all-font-names/
+
 /**
  * Class that represents text.
  */
