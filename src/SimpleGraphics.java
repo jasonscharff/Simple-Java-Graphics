@@ -16,12 +16,12 @@ import javax.swing.colorchooser.ColorSelectionModel;
 
 public class SimpleGraphics {
 	//Class scope variables
-	static final int WIDTH = 800;
-	static final int HEIGHT = 600;
-	static final JFrame frame = new JFrame();
-	static boolean hasConfiguredJFrame = false;
+	public static final int WIDTH = 800;
+	public static final int HEIGHT = 600;
+	private static final JFrame frame = new JFrame();
+	private static boolean hasConfiguredJFrame = false;
 	//A hash map of all supported colors so the user can enter in a string instead of a Color object
-	static HashMap<String, Color> colors = getColorsMap();
+	private static HashMap<String, Color> colors = getColorsMap();
 
 	/**
 	 * Used internally to generate a map of strings to colors so the user can just enter
@@ -211,8 +211,22 @@ public class SimpleGraphics {
 	public static void drawCircle(int x, int y, int radius)
 	{
 		configureJFrame();
-		Oval o = new Oval(x, y, radius *2, radius * 2);
 		frame.getContentPane().add(new Oval(x, y, radius * 2, radius * 2));
+		frame.setVisible(true);
+	}
+	
+	/**
+	 * This method draws a circle of a given thickness
+	 * with a given x coordinate, y coordinate, and radius
+	 * @param x		The x coordinate of the leftmost part of the circle
+	 * @param y		The y coordinate of the top left corner of the circle
+	 * @param radius	The radius of the circle to be drawn
+	 * @param thickness	The thickness of the circle's border.
+	 */
+	public static void drawCircle(int x, int y, int radius, int thickness)
+	{
+		configureJFrame();
+		frame.getContentPane().add(new Oval(x, y, radius * 2, radius * 2, thickness));
 		frame.setVisible(true);
 	}
 
@@ -230,7 +244,6 @@ public class SimpleGraphics {
 		{
 			Color c = colors.get(color.toLowerCase());
 			configureJFrame();
-			Oval o = new Oval(x, y, radius *2, radius * 2);
 			frame.getContentPane().add(new Oval(x, y, radius * 2, radius * 2, c));
 			frame.setVisible(true);
 		}
@@ -238,8 +251,63 @@ public class SimpleGraphics {
 		{
 			System.err.println("Invalid Color");
 		}
-
 	}
+	
+	/**
+	 * Draws an oval with a given x coordinate, y coordinate, radius in the x direction,
+	 * and radius in the y direction
+	 * @param x		The leftmost x coordinate of the oval
+	 * @param y		The top left hand y coordinate of the oval
+	 * @param r1	The radius in the x direction of the oval
+	 * @param r2	The radius in the y direction of the oval
+	 */
+	public static void drawOval(int x, int y, int r1, int r2)
+	{
+		configureJFrame();
+		frame.getContentPane().add(new Oval(x, y, r1 * 2, r2 * 2));
+		frame.setVisible(true);
+	}
+	
+	/**
+	 * Draws an oval of a given thickness with a given x coordinate
+	 * y coordinate, radius in the x direction, and radius in the y direction
+	 * @param x		The leftmost x coordinate of the oval
+	 * @param y		The top left hand y coordinate of the oval
+	 * @param r1	The radius in the x direction of the oval
+	 * @param r2	The radius in the y direction of the oval
+	 * @param thickness	The thickness of the border of the oval.
+	 */
+	public static void drawOval(int x, int y, int r1, int r2, int thickness)
+	{
+		configureJFrame();
+		frame.getContentPane().add(new Oval(x, y, r1 * 2, r2 * 2, thickness));
+		frame.setVisible(true);
+	}
+	
+	/**
+	 * Draws and fills an oval of the given color with a given x coordinate
+	 * y coordinate, radius in the x direction, and radius in the y direction
+	 * @param x		The leftmost x coordinate of the oval
+	 * @param y		The top left hand y coordinate of the oval
+	 * @param r1	The radius in the x direction of the oval
+	 * @param r2	The radius in the y direction of the oval
+	 * @param color	A string representation of the color
+	 */
+	public static void fillOval(int x, int y, int r1, int r2, String color)
+	{
+		if(colors.containsKey(color.toLowerCase()))
+		{
+			Color c = colors.get(color.toLowerCase());
+			configureJFrame();
+			frame.getContentPane().add(new Oval(x, y, r1 * 2, r2 * 2, c));
+			frame.setVisible(true);
+		}
+		else
+		{
+			System.err.println("Invalid Color");
+		}
+	}
+	
 	/**
 	 * Draws a square given an x and y coordinates and a side length
 	 * @param x		The x coordinate of the leftmost part of the square
@@ -250,6 +318,20 @@ public class SimpleGraphics {
 	{
 		configureJFrame();
 		frame.getContentPane().add(new Rectangle(x, y, sideLength, sideLength));
+		frame.setVisible(true);	
+	}
+	
+	/**
+	 * Draws a square of a certain thickness given an x and y coordinates and a side length
+	 * @param x		The x coordinate of the leftmost part of the square
+	 * @param y		The y coordinate of the top left hand corner of the square
+	 * @param sideLength	The side length of the square
+	 * @param thickness		The thickness of the square's border.
+	 */
+	public static void drawSquare(int x, int y, int sideLength, int thickness)
+	{
+		configureJFrame();
+		frame.getContentPane().add(new Rectangle(x, y, sideLength, sideLength, thickness));
 		frame.setVisible(true);	
 	}
 
@@ -263,10 +345,18 @@ public class SimpleGraphics {
 	 */
 	public static void fillSquare(int x, int y, int sideLength, String color)
 	{
-		configureJFrame();
-		Color c = colors.get(color.toLowerCase());
-		frame.getContentPane().add(new Rectangle(x, y, sideLength, sideLength, c));
-		frame.setVisible(true);
+		if(colors.containsKey(color.toLowerCase()))
+		{
+			configureJFrame();
+			Color c = colors.get(color.toLowerCase());
+			frame.getContentPane().add(new Rectangle(x, y, sideLength, sideLength, c));
+			frame.setVisible(true);
+		}
+		else
+		{
+			System.err.println("Invalid Color");
+		}
+		
 	}
 
 	/**
@@ -280,6 +370,20 @@ public class SimpleGraphics {
 	{
 		configureJFrame();
 		frame.getContentPane().add(new Rectangle(x, y, width, height));
+		frame.setVisible(true);	
+	}
+	
+	/**
+	 * Draws a rectangle of a certain thickness given an x and y coordinates, a width, and a height
+	 * @param x		The x coordinate of the leftmost part of the rectangle
+	 * @param y		The y coordinate of the top left hand corner of the rectangle
+	 * @param width		The width of the rectangle
+	 * @param height	The height of the rectangle
+	 */
+	public static void drawRectangle(int x, int y, int width, int height, int thickness)
+	{
+		configureJFrame();
+		frame.getContentPane().add(new Rectangle(x, y, width, height, thickness));
 		frame.setVisible(true);	
 	}
 
@@ -774,6 +878,15 @@ class Rectangle extends JComponent
 		this.height = height;
 	}
 
+	/**
+	 * Constructor which creates a rectangle of a certain color
+	 * with given x and y coordinates as well as a width and height
+	 * @param x	The leftmost x coordinate of the rectangle
+	 * @param y	The top left y coordinate of the rectangle
+	 * @param width	The width of the rectangle
+	 * @param height	The height of the rectangle
+	 * @param c		The color of the rectangle
+	 */
 	public Rectangle(int x, int y, int width, int height, Color c)
 	{
 		this.x = x;
@@ -783,6 +896,15 @@ class Rectangle extends JComponent
 		this.c = c;
 	}
 
+	/**
+	 * Constructor which creates a rectangle of a certain thickness
+	 * with given x and y coordinates as well as a width and height
+	 * @param x	The leftmost x coordinate of the rectangle
+	 * @param y	The top left y coordinate of the rectangle
+	 * @param width	The width of the rectangle
+	 * @param height	The height of the rectangle
+	 * @param thickness		The thickness of the rectangle
+	 */
 	public Rectangle(int x, int y, int width, int height, int thickness)
 	{
 		this.x = x;
@@ -792,6 +914,10 @@ class Rectangle extends JComponent
 		this.thickness = thickness;
 	}
 
+	/**
+	 * Overrides the JComponent paint method to actually draw
+	 * the rectangle in the frame.
+	 */
 	public void paint(Graphics g) 
 	{
 		Graphics2D g2 = (Graphics2D) g;
@@ -813,49 +939,81 @@ class Rectangle extends JComponent
 	}
 }
 
+/**
+ * A class that handles the drawing of circles
+ */
 class Oval extends JComponent
 {
+	//Properties set by user.
 	int x;
 	int y;
-	int radius_w;
-	int radius_h;
+	int width;
+	int height;
 	Color c = null;
 	int thickness = 0;
 
-	public Oval(int x, int y, int radius_w, int radius_h)
+	/**
+	 * Constructor that creates an oval at the given coordinates with
+	 * the given width and height
+	 * @param x		The x coordinate of the leftmost corner of the oval
+	 * @param y		The y coordinate of the top left corner of the oval
+	 * @param width	The width of the oval
+	 * @param height	The height of the oval
+	 */
+	public Oval(int x, int y, int width, int height)
 	{
 		this.x = x;
 		this.y = y;
-		this.radius_w = radius_w;
-		this.radius_h = radius_h;
+		this.width = width;
+		this.height = height;
 	}
 
-	public Oval (int x, int y, int radius_w, int radius_h, Color c)
+	/**
+	 * Constructor that creates an oval of a certain color at 
+	 * the given coordinates with the given width and height
+	 * @param x		The x coordinate of the leftmost corner of the oval
+	 * @param y		The y coordinate of the top left corner of the oval
+	 * @param width	The width of the oval
+	 * @param height	The height of the oval
+	 * @param c	The color of the oval
+	 */
+	public Oval (int x, int y, int width, int height, Color c)
 	{
 		this.x = x;
 		this.y = y;
-		this.radius_w = radius_w;
-		this.radius_h = radius_h;
+		this.width = width;
+		this.height = height;
 		this.c = c;
 	}
 
-	public Oval (int x, int y, int radius_w, int radius_h, int thickness)
+	/**
+	 * Constructor that creates an oval of a certain thickness at 
+	 * the given coordinates with the given width and height
+	 * @param x		The x coordinate of the leftmost corner of the oval
+	 * @param y		The y coordinate of the top left corner of the oval
+	 * @param width	The width of the oval
+	 * @param height	The height of the oval
+	 * @param thickness	The thickness of the oval
+	 */
+	public Oval (int x, int y, int width, int height, int thickness)
 	{
 		this.x = x;
 		this.y = y;
-		this.radius_w = radius_w;
-		this.radius_h = radius_h;
+		this.width = width;
+		this.height = height;
 		this.thickness = thickness;
 	}
 
-
+	/**
+	 * Overrides the JComponent paint method to actually draw the oval.
+	 */
 	public void paint(Graphics g) 
 	{
 		Graphics2D g2 = (Graphics2D) g;
 		if(c != null)
 		{
 			g.setColor(c);
-			g2.fillOval(x, y, radius_w * 2, radius_h * 2);
+			g2.fillOval(x, y, width * 2, height * 2);
 		}
 		else
 		{
@@ -863,26 +1021,43 @@ class Oval extends JComponent
 			{
 				g2.setStroke(new BasicStroke(thickness));
 			}
-			g2.drawOval(x, y, radius_w, radius_h);
+			g2.drawOval(x, y, width, height);
 
 		}
 
 	}
 }
 
+/**
+ * This class serves to create any general polygon with vertices
+ * at the given points. It's used both for general polygons and triangles.
+ */
 class Polygon extends JComponent
 {
+	//Properties set by user
 	int [] xCoordinates;
 	int [] yCoordinates;
 	Color c = null;
 	int thickness = 0;
 
+	/**
+	 * A constructor that creates a new polygon with the given coordinates as vertices
+	 * @param xCoordinates	An array of x coordinates
+	 * @param yCoordinates	An array of y coordinates
+	 */
 	public Polygon(int [] xCoordinates, int [] yCoordinates)
 	{
 		this.xCoordinates = xCoordinates;
 		this.yCoordinates = yCoordinates;
 	}
 
+	/**
+	 * A constructor that creates a new polygon of a given color
+	 * with the given coordinates as vertices
+	 * @param xCoordinates	An array of x coordinates
+	 * @param yCoordinates	An array of y coordinates
+	 * @param c	The color of the polygon
+	 */
 	public Polygon(int [] xCoordinates, int [] yCoordinates, Color c)
 	{
 		this.xCoordinates = xCoordinates;
@@ -890,6 +1065,13 @@ class Polygon extends JComponent
 		this.c = c;
 	}
 
+	/**
+	 * A constructor that creates a new polygon of a certain thickness
+	 * with the given coordinates as vertices
+	 * @param xCoordinates	An array of x coordinates
+	 * @param yCoordinates	An array of y coordinates
+	 * @param thickness	The line thickness of the polygon.
+	 */
 	public Polygon(int [] xCoordinates, int [] yCoordinates, int thickness)
 	{
 		this.xCoordinates = xCoordinates;
@@ -897,6 +1079,9 @@ class Polygon extends JComponent
 		this.thickness = thickness;
 	}
 
+	/**
+	 * Overrides JComponent paint to actually draw the shape.
+	 */
 	public void paint(Graphics g)
 	{
 		Graphics2D g2 = (Graphics2D) g;
@@ -918,12 +1103,23 @@ class Polygon extends JComponent
 	}
 }
 
+/**
+ * This class handles the creation of all lines
+ */
 class Line extends JComponent 
 {
+	//Properties set by user
 	int x1, y1, x2, y2;
 	Color c = null;
 	int thickness = 0;
 
+	/**
+	 * Constructor that creates a simple line between the given points
+	 * @param x1	The x coordinate of the first point
+	 * @param y1	The y coordinate of the first point
+	 * @param x2	The x coordinate of the second point
+	 * @param y2	The y coordinate of the second point
+	 */
 	public Line(int x1, int y1, int x2, int y2)
 	{
 		this.x1 = x1;
@@ -931,6 +1127,15 @@ class Line extends JComponent
 		this.y1 = y1;
 		this.y2 = y2;
 	}
+	
+	/**
+	 * Constructor that creates a line of a given thickness between the given points
+	 * @param x1	The x coordinate of the first point
+	 * @param y1	The y coordinate of the first point
+	 * @param x2	The x coordinate of the second point
+	 * @param y2	The y coordinate of the second point
+	 * @param thickness	The thickness of the line
+	 */
 	public Line(int x1, int y1, int x2, int y2, int thickness)
 	{
 		this.x1 = x1;
@@ -939,6 +1144,16 @@ class Line extends JComponent
 		this.y2 = y2;
 		this.thickness = thickness;
 	}
+	
+	/**
+	 * Constructor that creates a line of a given thickness and color between the given points
+	 * @param x1	The x coordinate of the first point
+	 * @param y1	The y coordinate of the first point
+	 * @param x2	The x coordinate of the second point
+	 * @param y2	The y coordinate of the second point
+	 * @param thickness	The thickness of the line
+	 * @param c		The color of the line.
+	 */
 	public Line(int x1, int y1, int x2, int y2, int thickness, Color c)
 	{
 		this.x1 = x1;
@@ -949,6 +1164,14 @@ class Line extends JComponent
 		this.c = c;
 	}
 
+	/**
+	 * Constructor that creates a line of a given color between the given points
+	 * @param x1	The x coordinate of the first point
+	 * @param y1	The y coordinate of the first point
+	 * @param x2	The x coordinate of the second point
+	 * @param y2	The y coordinate of the second point
+	 * @param c		The color of the line.
+	 */
 	public Line(int x1, int y1, int x2, int y2, Color c)
 	{
 		this.x1 = x1;
@@ -958,6 +1181,9 @@ class Line extends JComponent
 		this.c = c;
 	}
 
+	/**
+	 * Overrides JComponent paint to actually draw the line.
+	 */
 	public void paint(Graphics g)
 	{
 		Graphics2D g2 = (Graphics2D) g;
