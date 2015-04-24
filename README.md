@@ -67,6 +67,8 @@ A complete list of methods and their parameters is available in the JavaDoc.
 ###Technology
 The entire program is written in Java version 6, but it should be compatible with any later versions. All of the graphics is written in Swing/AWT
 
+###Note: The Javadoc can be found in the Javadoc folder under Javadoc.html
+
 
 
 
