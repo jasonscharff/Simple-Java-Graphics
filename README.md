@@ -1,7 +1,7 @@
 # SimpleGraphics: Quick Java Graphics
 
 ###Description
-When a user is first starting to program, they often want to get some sort of graphical element on the screen. The problem is that graphics, Java Swing in particular, is unnecessary complex for simple tasks like just getting a circle to appear on the screen. As an effort to solve this issue SimpleGraphics was created. SimpleGraphics is a library for Java that incorporates right into the beginner's code. They can use any of the Java functions they know and love, but can easily draw shapes, add text, and add images without needing to know what a JFrame is or even an object. The precise usage is described below.
+When a user is first starting to program, they often want to get some sort of graphical element on the screen. The problem is that graphics, Java Swing in particular, are unnecessary complex for simple tasks like just getting a circle to appear on the screen. As an effort to solve this issue SimpleGraphics was created. SimpleGraphics is a library for Java that incorporates right into the beginner's code. They can use any of the Java functions they know and love, and in addition, they can can easily draw shapes, add text, and add images without needing to know what a JFrame is or even an object. The precise usage is described below.
 
 ###Functionality
 Java Swing isn't inherrently bad (though it is by no means perfect). It just offers an incredible amount of functionality that is unncessary to most beginners that adds to the complexity for a programmer that doesn't even know what an object is. The detailed functions are available in the Javadoc, but an overview is below.
@@ -65,13 +65,9 @@ A complete list of methods and their parameters is available in the JavaDoc.
 
 
 ###Technology
-The entire program is written in Java version 6, but it should be compatible with any later versions. All of the graphics is written in Swing/AWT
+The entire program is written in Java version 6, but it should be compatible with any later versions. All of the graphics are written in Swing/AWT
 
-###Note: The Javadoc can be found in the Javadoc folder under Javadoc.html
-
-
-
-
+###Note: The JavaDoc can be found in the JavaDoc folder under Javadoc.html
 
 
 
